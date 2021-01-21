@@ -3,14 +3,55 @@ import { useEffect, useState } from 'react';
 
 
 function App() {
-  const API_KEY = process.env.REACT_APP_API_KEY;
-  const API_URL = `http://api.openweathermap.org/data/2.5/weather?q=Sorocaba&units=imperial&appid=${API_KEY}`;
   
-  const [weather, setWeather] = useState([]);
+  const [weather, setWeather] = useState({
+    main: {}
+  });
+  console.log(weather);
+  const [lat, setLat] = useState();
+  const [lon, setLon] = useState();
+  
+  const API_KEY = process.env.REACT_APP_API_KEY;
+  const API_URL = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`;
   
   useEffect(() => {
-    getWeather();
-  }, [])
+    getUserLocaction();
+    if (lat != undefined & lon != undefined) {
+      getWeather();
+    }
+  }, [lat, lon])
+
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+  };
+  
+  function success(pos) {
+    var crd = pos.coords;
+    setLat(crd.latitude);
+    setLon(crd.longitude);
+  }
+  
+  function errors(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+
+  const getUserLocaction = () => {
+    if (navigator.geolocation) {
+      navigator.permissions
+        .query({ name: "geolocation" })
+        .then(function (result) {
+          if (result.state === "granted") {
+            navigator.geolocation.getCurrentPosition(success);
+          } else if (result.state === "prompt") {
+            navigator.geolocation.getCurrentPosition(success, errors, options);
+          } else if (result.state === "denied") {
+            console.log("denied");
+          }
+        });
+    }
+  };
 
   const getWeather = async () => {
     const response = await fetch(API_URL);
@@ -21,7 +62,6 @@ function App() {
   return (
     <div className="App">
       {/* <img src="https://images.pexels.com/photos/3768/sky-sunny-clouds-cloudy.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt=""/> */}
-      <h1>{weather.name}</h1>
     </div>
   );
 }
