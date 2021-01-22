@@ -5,7 +5,9 @@ import { useEffect, useState } from 'react';
 function App() {
   
   const [weather, setWeather] = useState({
-    main: {}
+    main: {},
+    sys: {},
+    weather: {}
   });
   console.log(weather);
   const [lat, setLat] = useState();
@@ -62,6 +64,13 @@ function App() {
   return (
     <div className="App">
       {/* <img src="https://images.pexels.com/photos/3768/sky-sunny-clouds-cloudy.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt=""/> */}
+      <main>
+        <section className="glass">
+          <h2>{weather.name}, {weather.sys.country}</h2>
+          <h1>{weather.main.temp}° F {weather.weather.description}</h1>
+          <p>{weather.main.pressure} mbar</p>
+        </section>
+      </main>
     </div>
   );
 }

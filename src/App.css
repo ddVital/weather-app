@@ -1,19 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  background-color: black;
-}
-
-.App {
-  text-align: center;
-  color: white;
-}
-
-content {
+  background-image: url('./img/sky.png');
+  background-size: cover;
+  background-repeat: no-repeat;
   
 }
 
-img {
-  top:0;
-  left:0;
-  -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+.App {
+  /* text-align: center; */
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glass {
+  background-color: white;
+  background: linear-gradient(to right bottom, rgba(235, 244, 255, 0.7), rgba(218, 234, 255, 0.3));
+  border-radius: 2rem;
+  height: 80vh;
+  width: 60%;
+  backdrop-filter: blur(3rem);
 }
