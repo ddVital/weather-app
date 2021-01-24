@@ -23,9 +23,49 @@ main {
 
 .glass {
   background-color: white;
+  color: white;
   background: linear-gradient(to right bottom, rgba(235, 244, 255, 0.7), rgba(218, 234, 255, 0.3));
   border-radius: 2rem;
-  height: 80vh;
+  height: 50vh;
   width: 60%;
+  padding: 2rem;
   backdrop-filter: blur(3rem);
 }
+
+.city-name {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 3rem;
+}
+
+.weather-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.temperature {
+  float: right;
+}
+
+.temperature img, p {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.weather-img {width: 80px;}
+
+.temp {
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.info {
+  display: inline-block;
+  width: 10rem;
+}
+
+.info p {
+  margin: 20px 10px;
+}
+
