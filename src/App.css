@@ -32,6 +32,11 @@ main {
   backdrop-filter: blur(3rem);
 }
 
+.city-name, .weather-info {
+  animation-name: weather-animation;
+  animation-duration: 3s;
+}
+
 .city-name {
   text-align: center;
   font-size: 3rem;
@@ -69,3 +74,27 @@ main {
   margin: 20px 10px;
 }
 
+@keyframes weather-animation {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@media only screen and (max-width: 620px) {
+  .glass {width: 70%;}
+  
+  .city-name {
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+  }
+  
+  .weather-img {width: 80px;}
+  
+  .temp {font-size: 2.5rem;}
+
+  .info {
+    width: 13rem;
+    /* margin: 0 1.6rem; */
+  }
+  
+  .info p {margin: 20px 10px;}
+}

@@ -12,7 +12,8 @@ import { faWind, faTint, faTemperatureHigh } from '@fortawesome/free-solid-svg-i
 library.add(faWind, faTint, faTemperatureHigh)
 
 function App() {
-  
+
+  // climate images 
   const images = {
     cloudy: cloudy,
     rain: rain,
@@ -31,25 +32,68 @@ function App() {
   const [image, setImage] = useState();
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
-  console.log(weather);
+
   const API_KEY = process.env.REACT_APP_API_KEY;
-  // const API_URL = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`;
-  const API_URL = `http://api.openweathermap.org/data/2.5/weather?q=sorocaba&units=imperial&appid=${API_KEY}`;
+  const API_URL = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`;
+  const DEFAULT_API_URL = `http://api.openweathermap.org/data/2.5/weather?q=sorocaba&units=imperial&appid=${API_KEY}`;
   
   useEffect(() => {
-    // getUserLocaction();
-    getWeather();
-    // if (lat != undefined & lon != undefined) {
-    // }
-  },[])
+    getUserLocaction();
+    checkUserLocation();
+  }, [lon])
 
-  const getWeather = async () => {
-    const response = await fetch(API_URL);
-    const data = await response.json();
-    setWeather(data);
-    changeImage(data.weather[0].main);
+  const checkUserLocation = () => {
+    if (lat !== undefined && lon !== undefined) {
+      getWeather(API_URL);
+    } else {
+      getWeather(DEFAULT_API_URL);
+    }
   }
 
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+  };
+
+  // get the user geolocation
+  const getUserLocaction = () => {
+    if (navigator.geolocation) {
+      navigator.permissions
+        .query({ name: "geolocation" })
+        .then(function (result) {
+          if (result.state === "granted") {
+            navigator.geolocation.getCurrentPosition(success);
+          } else if (result.state === "prompt") {
+            navigator.geolocation.getCurrentPosition(success, errors, options);
+          }
+        });
+    } else {
+      alert("can't access location. Loading default location")
+    }
+  };
+
+  // succeded getting the user location
+  function success(pos) {
+    var crd = pos.coords;
+    setLat(crd.latitude);
+    setLon(crd.longitude);
+  }
+  
+  // error to get the user location
+  function errors(err) {
+    console.warn(`ERROR (${err.code}): ${err.message}`);
+  }
+
+  // fetch the api and get the weather
+  const getWeather = async (URL) => {
+    const response = await fetch(URL);
+    const data = await response.json();
+    changeImage(data.weather[0].main);
+    setWeather(data);
+  }
+
+  // change the shown image based on the climate 
   const changeImage = (weather) => {
     const description = weather;
 
@@ -70,7 +114,7 @@ function App() {
         setImage(images.thunderstorms);
         break;
       default:
-        // setImage(images.sunny);
+        setImage(images.sunny);
         break;
     }
   }
@@ -93,7 +137,6 @@ function App() {
               <p className="temp">{weather.main.temp}°</p>
             </div>
           </div>
-
         </section>
       </main>
     </div>
