@@ -1,7 +1,7 @@
 import './App.css';
 import cloudy from './img/cloudy.png';
 import rain from './img/rain.png';
-import snow_light from './img/snow_light.png';
+import snow from './img/snow.png';
 import sunny from './img/sunny.png';
 import thunderstorms from './img/thunderstorms.png';
 import { useEffect, useState } from 'react';
@@ -17,7 +17,7 @@ function App() {
   const images = {
     cloudy: cloudy,
     rain: rain,
-    snow_light: snow_light,
+    snow_light: snow,
     sunny: sunny,
     thunderstorms: thunderstorms,
   }
