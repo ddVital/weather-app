@@ -1,96 +1,187 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+body,
+html {
+  height: 100%;
 }
 
 body {
-  background-image: url('./img/sky.png');
-  background-size: cover;
+  /* background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url("https://wallpaperaccess.com/full/2859272.jpg"); */
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)),
+    url("https://wallpapercrafter.com/desktop/289584-lone-tree-tree-oak-clouds-landscape-the-fog.jpg");
+
+  background-position: center;
   background-repeat: no-repeat;
-  
-}
-
-main {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.glass {
-  background-color: white;
+  background-size: cover;
+  font-family: "Poppins", sans-serif;
   color: white;
-  background: linear-gradient(to right bottom, rgba(235, 244, 255, 0.7), rgba(218, 234, 255, 0.3));
-  border-radius: 2rem;
-  height: 50vh;
-  width: 60%;
-  padding: 2rem;
-  backdrop-filter: blur(3rem);
 }
 
-.city-name, .weather-info {
-  animation-name: weather-animation;
-  animation-duration: 3s;
+h2 {
+  font-size: 4rem;
 }
 
-.city-name {
-  text-align: center;
-  font-size: 3rem;
-  margin-bottom: 3rem;
+h3 {
+  font-size: 2.5rem;
 }
 
-.weather-info {
+h4 {
+  font-size: 1.7rem;
+}
+
+.header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 
-.temperature {
-  float: right;
+.search {
+  border-radius: 50px;
+  padding: 2px;
+  background-color: #0000001a;
+  backdrop-filter: blur(4px);
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.search input::placeholder {
+  color: white;
+  opacity: 0.7;
 }
 
-.temperature img, p {
-  vertical-align: middle;
-  display: inline-block;
+.search input {
+  color: white;
+  background: none;
+  border: none;
+  padding: 4px 15px 4px 4px;
 }
 
-.weather-img {width: 80px;}
+.search button {
+  color: white;
 
-.temp {
-  font-size: 60px;
+  right: 7px;
+  border: none;
+  background: none;
+  position: absolute;
+}
+/* ========== main ========== */
+main {
+  height: 60%;
+  margin-top: 70px;
+  /* margin: 50px; */
+}
+
+.react-switch-selector-wrapper {
+  backdrop-filter: blur(5px);
+}
+
+.App {
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 55vh;
+}
+
+.weather {
+  display: flex;
+  justify-content: space-around;
+}
+
+.weather-info__item {
+  display: flex;
+  padding: 10px;
+  font-size: 0.8rem;
+}
+
+.weather-info__item i {
+  font-size: 2rem;
+  margin: 3px 15px 3px 0;
+}
+
+.weather-info__item span {
+  font-size: 1.5rem;
   font-weight: bold;
 }
-
-.info {
-  display: inline-block;
-  width: 10rem;
+/* ========== Hourly temperature ========== */
+.hourly {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  bottom: 0;
+  position: absolute;
 }
 
-.info p {
-  margin: 20px 10px;
+.card {
+  width: 10%;
+  height: 150px;
+  padding: 10px;
+  margin: 20px;
+  backdrop-filter: blur(6px);
 }
 
-@keyframes weather-animation {
-  from {opacity: 0;}
-  to {opacity: 1;}
+.card p {
+  text-align: left;
 }
 
-@media only screen and (max-width: 620px) {
-  .glass {width: 70%;}
-  
-  .city-name {
-    font-size: 2.5rem;
-    margin-bottom: 4rem;
+.card__content {
+  margin-top: 25px;
+}
+.active .card__content {
+  margin-top: 25px;
+}
+
+.active {
+  box-shadow: 0px 0px 10px 4px #41414142;
+}
+
+.feels-like {
+  font-size: 0.8rem;
+}
+
+.clouds {
+  animation: clouds 1s ease-in-out infinite;
+}
+
+@keyframes clouds {
+  0% {
+    transform: translateX(3%);
   }
-  
-  .weather-img {width: 80px;}
-  
-  .temp {font-size: 2.5rem;}
 
-  .info {
-    width: 13rem;
-    /* margin: 0 1.6rem; */
+  50% {
+    transform: translateX(0%);
   }
-  
-  .info p {margin: 20px 10px;}
+
+  100% {
+    transform: translateX(3%);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hourly {
+    overflow: scroll;
+    bottom: 50px;
+    padding: 10px;
+    justify-content: initial;
+  }
+
+  .card {
+    min-width: 40vw;
+    margin: 5px;
+  }
+
+  .feels-like {
+    font-size: 0.8rem;
+  }
+
+  .weather {
+    display: block;
+  }
 }
